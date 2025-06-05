@@ -1,0 +1,13 @@
+services:
+    nginx:
+        build:
+            context: ./docker/nginx
+        volumes:
+            - ./:/app
+        ports:
+            - "8080:80"
+    php:
+        build:
+            context: ./docker/php
+        volumes:
+            -   ./:/app
