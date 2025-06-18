@@ -1,13 +1,37 @@
 services:
     nginx:
         build:
-            context: ./docker/nginx
+            context: docker/nginx
         volumes:
             - ./:/app
         ports:
             - "8080:80"
-    php:
+        depends_on:
+            - php-fpm
+            - php-cli
+            - db-mysql
+    php-fpm:
         build:
-            context: ./docker/php
+            context: docker/php/fpm
         volumes:
             -   ./:/app
+    php-cli:
+        build:
+            context: docker/php/cli
+        volumes:
+            - ./:/app
+        tty: true
+    db-mysql:
+        build:
+            context: docker/mysql
+        ports:
+            -   '3306:3306'
+        restart: always
+        environment:
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: 1111
+            MYSQL_ROOT_PASSWORD: My_password_ROOT_7890
+        volumes:
+            - mysql_data:/var/lib/mysql
+volumes:
+    mysql_data:
