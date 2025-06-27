@@ -3,7 +3,8 @@
   "license": "proprietary",
   "require": {
     "php": "^8.3",
-    "monolog/monolog": "^3.9"
+    "monolog/monolog": "^3.9",
+    "ext-pdo": "*"
   },
   "config": {
     "preferred-install": {

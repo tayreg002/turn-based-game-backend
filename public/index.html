@@ -1,15 +1,25 @@
-<!DOCTYPE html>
-<html lang="ru">
+
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя страница</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 <body>
+<form action="user.php" method="post">
+    <label for="name">Имя</label>
+    <input type="text" id="name" name="username"  placeholder="Ваше имя">
 
-<p>test</p>
+    <label for="age">Возраст:</label>
+    <input type="number" id="age" name="user_age" min="1" max="100" placeholder="Ваш возраст">
 
-<a href="index.php"><button>Назад</button></a>
 
+    <input type="submit" value="Добавить">
+
+</form>
 </body>
 </html>
+

@@ -15,6 +15,7 @@ services:
             context: docker/php/fpm
         volumes:
             -   ./:/app
+            - uploads_data:/app/public/uploads
     php-cli:
         build:
             context: docker/php/cli
@@ -35,3 +36,4 @@ services:
             - mysql_data:/var/lib/mysql
 volumes:
     mysql_data:
+    uploads_data:

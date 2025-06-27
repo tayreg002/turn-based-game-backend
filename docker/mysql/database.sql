@@ -8,4 +8,3 @@ CREATE TABLE user
     name varchar(100),
     age INT
 );
-

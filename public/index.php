@@ -20,59 +20,29 @@
 
 
 
-const HOST = 'db-mysql';
-const DBNAME = 'my_db_for_game';
-const USER = 'root';
-const PASSWORD = 'My_password_ROOT_7890';
 
-try {
-    $db = new PDO('mysql:host='.HOST.';dbname='.DBNAME,USER,PASSWORD);
+// Сделать отдельный файл для инециальзации констант и подключить этот файл в необходимые скрипты путем испольхования функции include или recvaered. Разобраться в этих функциях и чем они различаються
 
-    if (isset($_POST["show_data"])) {
-        header('Location: user.php');
-        exit;
-    } else if (isset($_POST["username"]) && isset($_POST["userage"])) {
-        $sql = "INSERT INTO user (name, age) VALUES (:username, :userage)";
+// Скрипт удаления переписать запрос под типу как в index.php ( Если не получиться оставить как есть)
 
-        $stmt = $db->prepare($sql);
+// Главную страницу вынести html в отдельный файл
 
-        $stmt->bindValue(":username", $_POST["username"]);
-        $stmt->bindValue(":userage", $_POST["userage"]);
+// Сделать отдельный файл list.php там идет обращение к БД где я показываю пользователей
 
-        $stmt->execute();
-        header('Location: user.php');
+// Прочитать про одинарные и двойные ковычки в PHP, понимать их различия и как на них реагирует интропритатор
 
-    }
+// Прочитать зачем нужна функция session_abort()
+
+// На странице лист сделать возможность загружать фотографии каждому пользователю файлы заргужать на сервер
+
+// В таблице с пользователям добавить калонку фотографии на каждой строке есть кнопка загрузить при нажатии кнопки открываеься обзор, после загрузки файла перезагружаеться страница и превью фотографии появляеться в необходимой ячейке. Сделать ограничения по типу файла jpeg, jpg, png. Можно загружать файл размер которых больше 5 Мб (Конфигурирование размера файла в php.ini)
+
+// Нужно добавить отдельный скрипт show для вывода большой карточки пользователя
+
+// SOLID GRASP
 
 
-}catch (PDOException $e){
-    echo $e->getMessage();
-}
-
-
-?>
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<form method="post">
-<label for="name">Имя</label>
-<input type="text" id="name" name="username"  placeholder="Ваше имя">
-
-<label for="age">Возраст:</label>
-<input type="number" id="age" name="userage" min="1" max="100" placeholder="Ваш возраст">
-
-
-<input type="submit" value="Добавить">
-<input type="submit" name="show_data" value="Вывести данные">
-</form>
-</body>
-</html>
-
+echo "<form action='uploads.php' method='post' enctype='multipart/form-data'>";
+echo "<input type='file' name='filename'  />";
+echo "<input type='submit' value='Загрузить'>";
+echo "</form>";

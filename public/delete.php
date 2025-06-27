@@ -1,21 +1,28 @@
 <?php
 
-const HOST = 'db-mysql';
-const DBNAME = 'my_db_for_game';
-const USER = 'root';
-const PASSWORD = 'My_password_ROOT_7890';
-
-
+require("const.php");
 
 if(isset($_POST["id"]))
 {
     try {
         $db = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, USER, PASSWORD);
-        $sql = 'DELETE FROM user WHERE id=' . $db->quote($_POST["id"]);
-        $db->exec($sql);
-        header("Location: user.php");
-    }catch (PDOException $e){
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        if (is_array($_POST["id"]) && !empty($_POST["id"])){
+            $id_delete = $_POST["id"];
+
+            $placeholders = implode(',', array_fill(0, count($id_delete), '?'));
+
+            $sql =  "DELETE FROM user WHERE id IN ($placeholders)";
+            $stmt = $db->prepare($sql);
+
+            $stmt->execute(array_values($id_delete));
+            header('Location: list.php');
+        }
+
+
+    } catch (PDOException $e){
         echo $e->getMessage();
     }
 }
-?>
+
