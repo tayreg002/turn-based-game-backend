@@ -1,28 +1,28 @@
 <?php
-require 'const.php';
+declare(strict_types=1);
 
 try {
-    $db = new PDO('mysql:host='.HOST.';dbname='.DBNAME, USER, PASSWORD);
+    $userId = $_POST['user_id'];
+    $filetype = $_FILES['filename']['type'];
+    $typeRestrictions = ['image/png', 'image/jpeg', 'image/jpg'];
+    if (!in_array($filetype, $typeRestrictions)) {
+        die('Недопустимый тип файла.');
+    }
 
+    $fileExtension = pathinfo($_FILES['filename']['name'], PATHINFO_EXTENSION);
 
-    $fileContent = file_get_contents($_FILES['filename']['tmp_name']);
+    $fileNameToSave = $userId . '.' . $fileExtension;
 
-    $sql = 'UPDATE user SET photo = :photo_content WHERE id = :id';
-    $stmt = $db->prepare($sql);
+    $uploadDir ='/app/public/uploads/';
+    $filePath = $uploadDir . $fileNameToSave;
 
+    if (move_uploaded_file($_FILES['filename']['tmp_name'], $filePath)) {
+            header('Location: list.php');
+            exit();
+    } else {
+        die('Не удалось переместить загруженный файл в основную папку.');
+    }
 
-    $stmt->bindParam(':photo_content', $fileContent, PDO::PARAM_LOB);
-    $stmt->bindParam(':id', $_POST['user_id'], PDO::PARAM_INT);
-
-
-    $stmt->execute();
-
-
-    header('Location: list.php');
-    exit();
-
-} catch (PDOException $e) {
-    echo "Ошибка базы данных: " . $e->getMessage();
 } catch (Exception $e) {
     echo "Ошибка: " . $e->getMessage();
 }

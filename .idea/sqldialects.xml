@@ -2,5 +2,11 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/docker/mysql/database.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/public/delete.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/public/display_photo.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/public/list.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/public/show.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/public/uploads.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/public/user.php" dialect="GenericSQL" />
   </component>
 </project>
