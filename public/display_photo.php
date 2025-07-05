@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App;
+
 try {
     $directory = 'uploads/';
     $typeRestrictions = ['png', 'jpeg', 'jpg'];
@@ -17,7 +19,6 @@ foreach ($typeRestrictions as $type) {
 }
     readfile($path);
 
-} catch (PDOException $e) {
+} catch (\PDOException $e) {
     echo $e->getMessage();
 }
-

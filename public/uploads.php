@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App;
+
 try {
     $userId = $_POST['user_id'];
     $filetype = $_FILES['filename']['type'];
@@ -23,6 +25,6 @@ try {
         die('Не удалось переместить загруженный файл в основную папку.');
     }
 
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo "Ошибка: " . $e->getMessage();
 }

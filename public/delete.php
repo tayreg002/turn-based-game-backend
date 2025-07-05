@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
-require("const.php");
-use app\const\database;
-if(isset($_POST["id"]))
+namespace App;
+
+require ('Connection.php');
+
+if(isset($_POST['id']))
 {
     try {
-        $db = new PDO('mysql:host='.database::HOST.';dbname='.database::DBNAME,database::USER,database::PASSWORD);
+        $db = Connection::getDbConnection();
 
-        if ($_POST["id"] !== []) {
-            $idDelete = $_POST["id"];
+        if ($_POST['id'] !== []) {
+            $idDelete = $_POST['id'];
 
             $placeholders = implode(',', array_fill(0, count($idDelete), '?'));
 
@@ -22,8 +24,7 @@ if(isset($_POST["id"]))
         }
 
 
-    } catch (PDOException $e){
+    } catch (\PDOException $e){
         echo $e->getMessage();
     }
 }
-

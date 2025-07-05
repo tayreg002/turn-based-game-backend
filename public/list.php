@@ -1,13 +1,14 @@
 <?php
 declare(strict_types=1);
 
-require"const.php";
-use app\const\database;
+namespace App;
+
+require ('Connection.php');
 
 try {
-    $db = new PDO('mysql:host='.database::HOST.';dbname='.database::DBNAME,database::USER,database::PASSWORD);
+    $db = Connection::getDbConnection();
     $stmt = $db->query('SELECT * FROM user');
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
     if (empty($result)) {
         header("Location: index.html");
         exit();
@@ -20,14 +21,14 @@ try {
 
     $result = $db->query("SELECT id, name, age FROM user");
 
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
         echo "<tr>";
         echo "<td>" . ($row['name']) . '</td>';
         echo "<td>" . ($row['age']) . '</td>';
 
         echo "<td>";
         $userId = ($row['id']);
-        echo '<a href="show.php?id=' . $userId . '" target="_blank">';
+        echo "<a href=show.php?id=$userId>";
         echo "<img src='display_photo.php?id=" . $userId . "' alt='Фото пользователя' style='max-width:100px; max-height:100px;'>";
         echo "</a>";
         echo "</td>";
@@ -57,8 +58,8 @@ try {
 
     echo "<a href='index.html'><button type='button'>Назад</button></a>";
 
-} catch (PDOException $e) {
+} catch (\PDOException $e) {
     echo "Ошибка базы данных: " . $e->getMessage();
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo "Неизвестная ошибка: " . $e->getMessage();
 }
